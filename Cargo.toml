@@ -1,0 +1,19 @@
+[package]
+name = "js-runtime"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[example]]
+name = "runtime"
+path = "examples/runtime.rs"
+
+[dependencies]
+serde = "1.0.197"
+serde_json = "1.0.114"
+
+serde_v8 = { version = "0.175.0" }
+v8 = { version = "0.83.2" }
+
+
