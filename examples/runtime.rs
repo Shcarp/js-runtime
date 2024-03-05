@@ -6,14 +6,17 @@ fn main() {
     let mut runtime = JsRuntime::new(JsRuntimeParams::default());
 
     let jscode = r#"
-        function hello() {
+        async function hello() {
             const result = print('Hello, World!');
-            print(result);
+            const web = await fetch('https://www.rust-lang.org');
+
+            console.log(web);
+
             return 'Hello, World!';
         }
-        hello();
+        await hello();
     "#;
 
-    let result = runtime.execute_script(jscode);
+    let result = runtime.execute_script(jscode, true);
     println!("result: {:?}", result);
 }

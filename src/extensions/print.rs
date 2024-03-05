@@ -6,8 +6,7 @@ pub fn print(
     let arg = args.get(0);
     let arg = arg.to_string(scope).unwrap();
     let arg = arg.to_rust_string_lossy(scope);
-    println!("{}", arg);
     rv.set(v8::undefined(scope).into());
 }
 
-pub const PRINT: &str = include_str!("js/print.js");
+pub const JS_CODE: &str = include_str!("js/print.js");

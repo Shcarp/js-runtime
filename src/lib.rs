@@ -2,7 +2,7 @@ mod extensions;
 mod state;
 mod utils;
 
-use std::{cell::OnceCell, sync::OnceLock};
+use std::sync::OnceLock;
 
 use state::JsRuntimeState;
 use v8::{CreateParams, OwnedIsolate};
@@ -44,10 +44,11 @@ impl JsRuntime {
     pub fn execute_script(
         &mut self,
         code: impl AsRef<str>,
+        is_module: bool,
     ) -> Result<serde_json::Value, serde_json::Value> {
         let ctx = JsRuntimeState::get_context(&mut self.isolate);
         let handle_scope = &mut v8::HandleScope::with_context(&mut self.isolate, ctx);
-        match utils::execute_script(handle_scope, code) {
+        match utils::execute_script(handle_scope, code, is_module) {
             Ok(v) => Ok(serde_v8::from_v8(handle_scope, v).unwrap()),
             Err(err) => Err(serde_v8::from_v8(handle_scope, err).unwrap()),
         }
